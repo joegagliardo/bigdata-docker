@@ -315,25 +315,7 @@ RUN echo "# ---------------------------------------------" && \
     chmod +x /scripts/create-datadirs.sh && \
     chmod +x /scripts/delete-datadirs.sh && \
     echo "# ---------------------------------------------" && \
-    echo "# Spark XML library" && \
-    echo "# ---------------------------------------------" && \
     cd /home && \
-    git clone ${SPARK_XML_GIT} && \
-    cd /home/spark-xml && \
-    sbt/sbt package && \
-    cp /home/spark-xml/target/scala-2.11/*.jar /usr/local/spark/jars && \
-    ln -s /usr/local/spark/jars/spark-xml_2.11-0.4.1.jar /usr/local/spark/jars/spark-xml.jar && \
-    cd /home && \
-    rm -r /home/spark-xml && \
-	cd /home && \
-	git clone https://github.com/minrk/findspark.git && \
-	cd /home/findspark && \
-    python2 setup.py install && \
-	python3 setup.py install && \
-	cd /home && \
-	rm -r /home/findspark && \
-    cd /home && \
-    echo "# ---------------------------------------------" && \
     echo "# Spark Cassandra Connector" && \
     echo ${SPARK_CASSANDRA_URL} && \
     echo "# ---------------------------------------------" && \
@@ -397,6 +379,24 @@ CMD ["/etc/bootstrap.sh", "-d"]
 #    mvn package -DskipTests && \
 #    mvn clean package test && \
 #    mvn -DwildcardSuites=org.apache.spark.sql.DefaultSourceSuite test && \
+#    echo "# ---------------------------------------------" && \
+#    echo "# Spark XML library" && \
+#    echo "# ---------------------------------------------" && \
+#    cd /home && \
+#    git clone ${SPARK_XML_GIT} && \
+#    cd /home/spark-xml && \
+#    sbt/sbt package && \
+#    cp /home/spark-xml/target/scala-2.11/*.jar /usr/local/spark/jars && \
+#    ln -s /usr/local/spark/jars/spark-xml_2.11-0.4.1.jar /usr/local/spark/jars/spark-xml.jar && \
+#    cd /home && \
+#    rm -r /home/spark-xml && \
+#	cd /home && \
+#	git clone https://github.com/minrk/findspark.git && \
+#	cd /home/findspark && \
+#    python2 setup.py install && \
+#	python3 setup.py install && \
+#	cd /home && \
+#	rm -r /home/findspark && \
 
 
 #    echo "# ---------------------------------------------" && \
