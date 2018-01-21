@@ -252,15 +252,6 @@ RUN echo "# ---------------------------------------------" && \
     ln -s /conf/spark /usr/local/spark/conf && \
     cd /home && \
     echo "# ---------------------------------------------" && \
-    echo "# Spark HBase" && \
-    echo ${SPARK_HBASE_GIT} && \
-    echo "# ---------------------------------------------" && \
-    git clone ${SPARK_HBASE_GIT} && \
-    cd shc && \
-    mvn package -DskipTests && \
-    mvn clean package test && \
-    mvn -DwildcardSuites=org.apache.spark.sql.DefaultSourceSuite test && \
-    echo "# ---------------------------------------------" && \
     echo "# HBase" && \
     echo ${HBASE_URL} && \
     echo "# ---------------------------------------------" && \
@@ -396,6 +387,16 @@ RUN echo "*************" && \
 
 CMD ["/etc/bootstrap.sh", "-d"]
 # end of actual build
+
+#    echo "# ---------------------------------------------" && \
+#    echo "# Spark HBase" && \
+#   echo ${SPARK_HBASE_GIT} && \
+#    echo "# ---------------------------------------------" && \
+#    git clone ${SPARK_HBASE_GIT} && \
+#    cd shc && \
+#    mvn package -DskipTests && \
+#    mvn clean package test && \
+#    mvn -DwildcardSuites=org.apache.spark.sql.DefaultSourceSuite test && \
 
 
 #    echo "# ---------------------------------------------" && \
