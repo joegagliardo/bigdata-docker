@@ -354,7 +354,7 @@ RUN echo "# ---------------------------------------------" && \
     echo "# Spark HBase" && \
     echo ${SPARK_HBASE_GIT} && \
     echo "# ---------------------------------------------" && \
-    cd /tmp
+    cd /tmp && \
     git clone ${SPARK_HBASE_GIT} && \
     cd /tmp/shc && \
     mvn package -DskipTests && \
