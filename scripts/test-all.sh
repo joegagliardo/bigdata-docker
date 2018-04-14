@@ -1,16 +1,6 @@
-/scripts/format-namenode.sh
-sleep .5
-/scripts/init-schema-mysql.sh
-sleep .5
-/scripts/start-cassandra.sh
-sleep 4
-start-hbase.sh
-sleep 1
-/scripts/start-thrift.sh
-sleep 1
-/scripts/start-mongo.sh
-sleep 1
-/scripts/start-hiveserver.sh
+#! /bin/sh
+
+/scripts/start-everything.sh
 sleep 1
 
 # cassandra
@@ -49,4 +39,3 @@ cd /examples/spark
 ./submit-spark-mongo.sh
 ./submit-spark-mysql.sh
 ./submit-spark-xml.sh
-
