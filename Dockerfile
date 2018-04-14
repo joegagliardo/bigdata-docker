@@ -302,6 +302,7 @@ RUN echo "# ---------------------------------------------" && \
     mkdir /data/cassandra && \
     mkdir /data/cassandra/data && \
     mkdir /data/cassandra/log && \
+    mkdir /data/cassandra/saved_caches && \
     mv /etc/cassandra /etc/cassandra_backup && \
     ln -s /conf/cassandra /etc/cassandra && \
     chmod +x /examples/cassandra/test-cassandra-table.py && \
