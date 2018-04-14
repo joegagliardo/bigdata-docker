@@ -5,10 +5,25 @@ MAINTAINER joegagliardo
 # the ultimate build size. I also prefer to echo a file and build it in a RUN so there is
 # no reliance on outside files needed if you use an ADD
 
+# Ports that are used
+# 9042 Cassandra
+# 9160 Thrift Cassandra clients
+# 50010 Datanode
+# 50020 Datanode
+# 50070 Namenode
+# 50090 Secondary Namenode
+# 8030 8031 8032 8033 8088 ResourceManager
+# 8040 8041 8042 NodeManager
+# 10000 HiveServer2
+# 9083 Hive MetaStore
+# 60000 60010 HBase Master
+# 7077 7078 Spark
+# 3306 MySQL
+
+
+EXPOSE 22 50010 50020 50070 50075 50090 8030 8031 8032 8033 8040 8041 8042 8088 9083 10000 10001 10002 9160 9042 3306 49707 60000 60010 7077 7078
+
 # This section is an easy place to change the desired password and versions you want to install
-
-EXPOSE 50020 50090 50070 50010 50075 8031 8032 8033 8040 8042 49707 22 8088 8030 3306 10000 10001 10002
-
 # MYSQL Passwords
 ARG HIVEUSER_PASSWORD=hivepassword
 ARG HIVE_METASTORE=hivemetastore
@@ -159,8 +174,6 @@ RUN echo "# ---------------------------------------------" && \
     echo "# Make folders for HDFS data" && \
     echo "# ---------------------------------------------" && \
     mkdir /data/hdfs && \
-    mkdir /data/hdfs/name && \
-    mkdir /data/hdfs/data && \
     echo "# ---------------------------------------------" && \
     echo "# Hadoop" && \
     echo "# ---------------------------------------------" && \
@@ -514,3 +527,7 @@ CMD ["/etc/bootstrap.sh", "-d"]
 # start-hbase.sh
 # make scripts executable removed
 #    chmod +x /scripts/start-hiveserver.sh && \
+
+
+#    mkdir /data/hdfs/name && \
+#    mkdir /data/hdfs/data && \
