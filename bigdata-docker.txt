@@ -21,7 +21,9 @@ MAINTAINER joegagliardo
 # 3306 MySQL
 
 # These are all the ports I need to open to make the docker work with the host computer
+
 EXPOSE 22 50010 50020 50070 50075 50090 8030 8031 8032 8033 8040 8041 8042 8088 9083 10000 10001 10002 9160 9042 3306 49707 60000 60010 7077 7078
+
 
 # This section is an easy place to change the desired password and versions you want to install
 # MYSQL Passwords
