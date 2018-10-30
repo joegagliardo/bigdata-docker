@@ -9,6 +9,13 @@ RegionName string)
 ROW FORMAT DELIMITED FIELDS TERMINATED BY ','
 LOCATION '/regions';
 
+
+CREATE EXTERNAL TABLE Regionstab(
+RegionID int,
+RegionName string)
+ROW FORMAT DELIMITED FIELDS TERMINATED BY '\t'
+LOCATION '/regionstab';
+
 SELECT * FROM Regions;
 
 SELECT *, INPUT__FILE__NAME FROM Regions;
@@ -48,7 +55,7 @@ SELECT * FROM Regions_Tab;
 
 dfs -cat /regions_tab/*;
 
-ADD JAR /usr/local/hive/hcatalog/share/hcatalog/hive-hcatalog-core.jar;
+ADD JAR /usr/local/hive/hcatalog/share/hcatalog/hive-hcatalog-core-2.3.2.jar;
 
 CREATE TABLE Territories(
 TerritoryID string,
@@ -95,7 +102,7 @@ LOAD DATA LOCAL INPATH '/examples/northwind/JSON/products/products.json' OVERWRI
 CREATE TABLE Territories_List
 ROW FORMAT SERDE 'org.apache.hive.hcatalog.data.JsonSerDe' STORED AS TEXTFILE
 AS
-SELECT RegionID, collect_set(TerritoryName) AS TerritoryList
+SELECT RegionID, collect_set(TerritoryDescription) AS TerritoryList
 FROM Territories
 GROUP BY RegionID;
 

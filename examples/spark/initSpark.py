@@ -1,23 +1,23 @@
-import platform
-import findspark
-findspark.init()
+# you should make sure you have spark in your python path as below
+# export PYTHONPATH=$SPARK_HOME/python:$SPARK_HOME/python/build:$PYTHONPATH
+# but if you don't it will append it automatically for this session
+
+import platform, os, sys
+from os.path import dirname
+
+if not os.environ['SPARK_HOME'] in sys.path:
+   sys.path.append(os.environ['SPARK_HOME']+'/python')
+
 from pyspark import SparkConf, SparkContext
-from pyspark.sql import SparkSession
-from pyspark.sql import SQLContext
+from pyspark.sql import SparkSession, SQLContext
 from pyspark.sql.types import *
 
 def initspark(appname = "Test", servername = "local"):
 	conf = SparkConf().setAppName(appname).setMaster(servername)
 	sc = SparkContext(conf=conf)
-	#spark = SQLContext(sc)
-	spark = SparkSession \
-    	.builder \
-    	.appName(appname) \
-    	.enableHiveSupport() \
-    	.getOrCreate()
+	spark = SparkSession.builder.appName(appname).enableHiveSupport().getOrCreate()
 	sc.setLogLevel("ERROR")
 	return sc, spark, conf
-
 
 
 def hdfsPath(folder, hostname = None, port = 9000):
@@ -27,6 +27,7 @@ def hdfsPath(folder, hostname = None, port = 9000):
 		port = 9000
 	if folder == None:
 		folder = ''
-		
 	return 'hdfs://{0}:{1}/{2}'.format(hostname, port, folder)
 
+
+sc, spark, conf = initspark()

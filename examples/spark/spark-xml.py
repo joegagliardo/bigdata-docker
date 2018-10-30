@@ -1,11 +1,16 @@
 #! /usr/bin/python
 # spark-submit --jars "/usr/local/spark/jars/spark-xml.jar" /examples/spark/spark2.py
 
-from initSpark import initspark, hdfsPath
-sc, spark, conf = initspark("spark-xml")
+import platform
+import findspark
+findspark.init()
+from pyspark import SparkConf, SparkContext
+from pyspark.sql import SQLContext
 from pyspark.sql.types import *
-log4j = sc._jvm.org.apache.log4j
-log4j.LogManager.getRootLogger().setLevel(log4j.Level.ERROR)
+conf = SparkConf().setAppName("spark-xml").setMaster("local")
+sc = SparkContext(conf=conf)
+spark = SQLContext(sc)
+sc.setLogLevel("ERROR")
 
 products = spark.read.csv('/examples/northwind/CSVHeaders/products/products.csv', header=True) 
 products.write \
@@ -17,7 +22,7 @@ products.write \
 products2 = spark.read \
     .format("com.databricks.spark.xml") \
     .options(rootTag="products", rowTag="product") \
-    .load("/examples/spark/results//products_xml")
+    .load("/examples/spark/results/products_xml")
 
 productSchema = StructType([ \
     StructField("ProductID", IntegerType(), True), \
